@@ -1,6 +1,13 @@
 <template>
   <q-page class="flex flex-center">
     <div class="full-width text-center">
+      Carregue uma foto das seguintes categorias abaixo para reconhecimento:<br />
+      "AVIÃO", "CARRO", "PÁSSARO"<br />
+      "GATO", "CERVO", "CACHORRO"<br />
+      "SAPO", "CAVALO" "BARCO"<br />
+      "CAMINHÃO"<br />
+    </div>
+    <div class="full-width text-center">
       <img style="width:300px;" id="imagem" :src="img" />
     </div>
     <div class="q-gutter-md text-center" style="width:300px;">
@@ -32,16 +39,16 @@ export default {
       file: null,
       img: truck,
       labels: [
-        "avião",
-        "carro",
-        "pássaro",
-        "gato",
-        "cervo",
-        "cachorro",
-        "sapo",
-        "cavalo",
-        "barco",
-        "caminhão"
+        "AVIÃO",
+        "CARRO",
+        "PÁSSARO",
+        "GATO",
+        "CERVO",
+        "CACHORRO",
+        "SAPO",
+        "CAVALO",
+        "BARCO",
+        "CAMINHÃO"
       ]
     };
   },
