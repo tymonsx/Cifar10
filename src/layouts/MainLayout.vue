@@ -2,14 +2,28 @@
   <q-layout view="lHh Lpr lFf">
     <q-header reveal bordered class="bg-primary text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
+        <q-toolbar-title
+          clickable
+          v-ripple
+          @click="$router.replace('/')"
+          active-class="my-menu-link"
+        >
+          <div style="width:60px; float:left; ">
             <img
-              src="https://www.unifesp.br/reitoria/dci/images/docs/manual_da_marca/Unifesp_completa_verde_negativo_RGB.png"
+              style="display:block; margin-right:auto;  "
+              width="50px"
+              src="~assets/olho_logo.png"
             />
-          </q-avatar>
-          Cifar-10 Desenvolvido pela UNIFESP
+          </div>
+          <div
+            style="width:50%; float:left; word-break: break-all; padding-top: 8px   "
+          >
+            <span style="font-size:15px; ">RECONHECEDOR DE IMAGENS</span>
+            <br />
+          </div>
         </q-toolbar-title>
+
+        <q-btn icon="info" to="/sobre" flat />
       </q-toolbar>
     </q-header>
 
@@ -17,15 +31,29 @@
       <router-view />
     </q-page-container>
 
-    <q-footer reveal bordered class="bg-primary text-white">
+    <q-footer elevated>
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar>
+          <div style="min-width:40px;width:10%; float:left; ">
+            <img style="margin-top: 5px; " width="40px" src="~assets/epm.png" />
+          </div>
+          <div
+            class="desktop-only text-caption text-center float-left"
+            style="width:80%"
+          >
+            Rua Botucatu, 862-Térreo, Vila Clementino, São Paulo (SP). Cep:
+            04023-062 - Email: contato@dis.epm.br - CNPJ:60.453.032/0001-74
+          </div>
+          <div
+            class="text-right"
+            style="min-width:75px; width:10%;float:right;"
+          >
             <img
-              src="https://www.unifesp.br/reitoria/dci/images/docs/manual_da_marca/Unifesp_completa_verde_negativo_RGB.png"
+              style="margin-top: 5px; "
+              width="75px"
+              src="~assets/logo_unifesp.png"
             />
-          </q-avatar>
-          Cifar-10 Desenvolvido pela UNIFESP
+          </div>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
