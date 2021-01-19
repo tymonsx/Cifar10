@@ -85,7 +85,7 @@
               <div class="text-justify">
                 
                 <p>
-                O App Cifar10 baseia-se no exemplo de classificação multiclasse de imagem utilizando deep learning apresentado no curso
+                O App Cifar10 baseia-se no exemplo de técnica de deep learning utilizando rede convolucional apresentado no curso
                 <i>Deep Learning Prático com TensorFlow e Python</i>
                 disponível na plataforma Udemy através do link  <a
                   href="#"
