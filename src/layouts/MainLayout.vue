@@ -1,6 +1,15 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header reveal bordered class="bg-primary text-white">
+      <q-bar class="q-electron-drag electron-only">
+        <div>appCifar10</div>
+
+        <q-space></q-space>
+
+        <q-btn dense flat icon="minimize" @click="minimize"></q-btn>
+        <q-btn dense flat icon="crop_square" @click="maximize"></q-btn>
+        <q-btn dense flat icon="close" @click="closeApp"></q-btn>
+      </q-bar>
       <q-toolbar>
         <q-toolbar-title
           clickable
@@ -8,17 +17,17 @@
           @click="$router.replace('/')"
           active-class="my-menu-link"
         >
-          <div style="width:60px; float:left; ">
+          <div style="width:80px; float:left; ">
             <img
               style="display:block; margin-right:auto;  "
-              width="50px"
+              width="70px"
               src="~assets/olho_logo.png"
             />
           </div>
           <div
-            style="width:50%; float:left; word-break: break-all; padding-top: 8px   "
+            style="width:50%; margin-left:50%; margin-right:50%; word-break: break-all; padding-top: 20px;"
           >
-            <span style="font-size:15px; ">RECONHECEDOR DE IMAGENS</span>
+            <span style="font-size:18px;">App Cifar10</span>
             <br />
           </div>
         </q-toolbar-title>
@@ -26,10 +35,6 @@
         <q-btn icon="info" to="/sobre" flat />
       </q-toolbar>
     </q-header>
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
 
     <q-footer elevated>
       <q-toolbar>
@@ -57,11 +62,43 @@
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
+    <q-page-container>
+      <router-view />
+    </q-page-container>
   </q-layout>
 </template>
 
 <script>
+import Vue from "vue";
+import Vuex from "vuex";
+Vue.use(Vuex);
+
 export default {
-  name: "MainLayout"
+  name: "MainLayout",
+  methods: {
+    minimize() {
+      if (process.env.MODE === "electron") {
+        this.$q.electron.remote.BrowserWindow.getFocusedWindow().minimize();
+      }
+    },
+
+    maximize() {
+      if (process.env.MODE === "electron") {
+        const win = this.$q.electron.remote.BrowserWindow.getFocusedWindow();
+
+        if (win.isMaximized()) {
+          win.unmaximize();
+        } else {
+          win.maximize();
+        }
+      }
+    },
+
+    closeApp() {
+      if (process.env.MODE === "electron") {
+        this.$q.electron.remote.BrowserWindow.getFocusedWindow().close();
+      }
+    }
+  }
 };
 </script>

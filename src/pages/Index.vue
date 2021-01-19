@@ -11,17 +11,18 @@
       <img style="width:300px;" id="imagem" :src="img" />
     </div>
     <div class="q-gutter-md text-center" style="width:300px;">
-      <q-file outlined v-model="file">
+      <q-file outlined v-model="file" @input="carregaImagem">
         <template v-slot:prepend>
           <q-icon name="attach_file"></q-icon>
         </template>
       </q-file>
-      <button v-on:click="carregaImagem">Carregar</button>
     </div>
     <div class="full-width text-center">
-      <button v-on:click="predict">Reconhecer imagem</button>
+      <q-btn color="primary" v-on:click="predict">Reconhecer imagem</q-btn>
     </div>
-    <div class="element">{{ predictedValue }}</div>
+    <div>
+      <div class="element">{{ predictedValue }}</div>
+    </div>
   </q-page>
 </template>
 
@@ -70,6 +71,11 @@ export default {
         alert(error);
       }
     },
+    carregaImagem() {
+      this.img = URL.createObjectURL(this.file);
+      console.log(this.file);
+      this.predictedValue = "Clique em reconhecer imagem";
+    },
     predict() {
       this.valueToPredict = document.getElementById("imagem");
       let arrInput = tf.browser.fromPixels(this.valueToPredict); //
@@ -80,10 +86,6 @@ export default {
       let valor = this.model.predict(this.valueToPredict);
 
       this.predictedValue = this.labels[valor.argMax(-1).dataSync()[0]];
-    },
-    carregaImagem() {
-      this.img = URL.createObjectURL(this.file);
-      console.log(this.file);
     }
   }
 };
