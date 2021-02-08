@@ -104,8 +104,8 @@ module.exports = function(/* ctx */) {
       workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `image_recon`,
-        short_name: `image_recon`,
+        name: `appCifar10`,
+        short_name: `appCifar10`,
         description: `Reconhecimento de imagem com quasar`,
         display: "standalone",
         orientation: "portrait",

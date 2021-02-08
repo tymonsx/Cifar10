@@ -7,9 +7,6 @@ const routes = [
       { path: "/sobre", component: () => import("pages/sobre.vue") }
     ]
   },
-
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: "*",
     component: () => import("pages/Error404.vue")
