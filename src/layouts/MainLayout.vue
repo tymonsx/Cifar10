@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header reveal bordered class="bg-primary text-white">
       <q-bar class="q-electron-drag electron-only">
-        <div>appCifar10</div>
+        <div>App Cifar10</div>
 
         <q-space></q-space>
 
@@ -21,21 +21,19 @@
             <img
               style="display:block; margin-right:auto;  "
               width="70px"
-              src="~assets/olho_logo.png"
+              src="~assets/logo_olho.png"
             />
           </div>
           <div
-            style="width:50%; margin-left:50%; margin-right:50%; word-break: break-all; padding-top: 20px;"
+            style="width:50%; margin-left:50%; margin-right:50%; padding-top: 20px;"
           >
             <span style="font-size:18px;">App Cifar10</span>
             <br />
           </div>
         </q-toolbar-title>
-
         <q-btn icon="info" to="/sobre" flat />
       </q-toolbar>
     </q-header>
-
     <q-footer elevated>
       <q-toolbar>
         <q-toolbar-title>
@@ -43,7 +41,7 @@
             <img style="margin-top: 5px; " width="40px" src="~assets/epm.png" />
           </div>
           <div
-            class="desktop-only text-caption text-center float-left"
+            class="gt-sm text-caption text-center float-left"
             style="width:80%"
           >
             Rua Botucatu, 862-Térreo, Vila Clementino, São Paulo (SP). Cep:
@@ -67,12 +65,7 @@
     </q-page-container>
   </q-layout>
 </template>
-
 <script>
-import Vue from "vue";
-import Vuex from "vuex";
-Vue.use(Vuex);
-
 export default {
   name: "MainLayout",
   methods: {
@@ -81,11 +74,9 @@ export default {
         this.$q.electron.remote.BrowserWindow.getFocusedWindow().minimize();
       }
     },
-
     maximize() {
       if (process.env.MODE === "electron") {
         const win = this.$q.electron.remote.BrowserWindow.getFocusedWindow();
-
         if (win.isMaximized()) {
           win.unmaximize();
         } else {
@@ -93,7 +84,6 @@ export default {
         }
       }
     },
-
     closeApp() {
       if (process.env.MODE === "electron") {
         this.$q.electron.remote.BrowserWindow.getFocusedWindow().close();

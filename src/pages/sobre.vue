@@ -4,7 +4,7 @@
     <div style="width: 100%; padding-bottom: 135%;">
       <q-list>
         <q-expansion-item
-          :group="$q.screen.width > 1000 ? 'a' : 'sobre_app'"
+          group="processo_criacao"
           label="Processo de Criação"
           class="bg-secondary text-justify"
           :default-opened="$q.screen.width > 1000"
@@ -59,12 +59,11 @@
                         Antonio Carlos da Silva Junior: Analista de Tecnologia da Informação no Departamento de Informática em Saúde da UNIFESP.
                     </li>
                     <li>
-                        Ivan Calixto Ribeiro: Técnico de Tecnologia da Informação no Departamento de Informática em Saúde da UNIFESP.  
+                        Ivan Calixto Ribeiro - Departamento de Informática em Saúde da UNIFESP.  
                     </li>
                     <li>
                         Raphael Hendrigo de Souza Gonçalves: Analista de Tecnologia da Informação no Departamento de Informática em Saúde da UNIFESP.
                     </li>
-                    <li>Vitor Tonini Machado: Arquivista no Departamento de Informática em Saúde e líder do Escritório de Projetos do DIS</li>
                   </ul>
                 </p>
               </div>
@@ -72,7 +71,7 @@
           </q-card>
         </q-expansion-item>
         <q-expansion-item
-          :group="$q.screen.width > 1000 ? 'b' : 'sobre_app'"
+          group="referencias_utilizadas"
           label="Referências Utilizadas"
           :class="$q.screen.width > 1000 ? 'bg-secondary text-justify' : 'text-justify'"
           :default-opened="$q.screen.width > 1000"
@@ -86,7 +85,7 @@
                 
                 <p>
                 O App Cifar10 baseia-se no exemplo de técnica de deep learning utilizando rede convolucional apresentado no curso
-                <i>Deep Learning Prático com TensorFlow e Python</i>
+                <b>Deep Learning Prático com TensorFlow e Python</b>
                 disponível na plataforma Udemy através do link  <a
                   href="#"
                   v-on:click="
@@ -116,13 +115,12 @@
     </div>
   </q-page>
 </template>
-
 <script>
 import { openURL } from "quasar";
-
+ 
 export default {
   name: "Sobre",
-
+ 
   methods: {
     abrirLink(url) {
       openURL(url);

@@ -1,53 +1,52 @@
 <template>
   <q-page class="flex flex-center">
-    <div
-      :class="
-        $q.screen.width > 1000 ? 'full-width text-center' : ' text-justify'
-      "
-      :style="
-        $q.screen.width > 750
-          ? ''
-          : 'margin-left: 0.8%; margin-right:0.4%; width:98%;'
-      "
-    >
-      Carregue uma foto das seguintes categorias: "AVIÃO", "CARRO", "PÁSSARO",
-      "GATO", "CERVO", "CACHORRO", "SAPO", "CAVALO", "BARCO", "CAMINHÃO"
+    <div class="q-pl-sm q-pr-sm text-center">
+      Categorias aceitas: "AVIÃO", "CARRO", "PÁSSARO", "GATO", "CERVO",
+      "CACHORRO", "SAPO", "CAVALO", "BARCO", "CAMINHÃO"
     </div>
-    <div class="full-width text-center q-gutter-xs">
-      <img id="imagem" style="width:224px;" :src="img" />
+    <div class="full-width row flex flex-center">
+      <img
+        class="col-xs-6 col-sm-3 col-md-2 col-lg-2 col-xl-2"
+        id="imagem"
+        :src="img"
+      />
     </div>
-    <div class="q-gutter-xs text-center" style="width:224px;">
-      <q-file outlined v-model="arquivo" @input="carregarImagem">
-        <template v-slot:prepend>
-          <q-icon name="attach_file"></q-icon>
-        </template>
-      </q-file>
-    </div>
-    <div class="full-width text-center q-gutter-sm">
-      <q-btn color="primary" v-on:click="predizerImagem"
-        >Reconhecer imagem</q-btn
-      >
-      <q-btn color="primary" v-on:click="limparCampos">Limpar campos</q-btn>
-    </div>
-    <div>
-      <div class="element q-ma-xs">{{ msgPredicao }}</div>
-    </div>
+    <q-form @submit.stop="predizerImagem" @reset="limparCampos">
+      <div style="width:224px; margin-right: auto; margin-left: auto;">
+        <q-file
+          outlined
+          v-model="arquivo"
+          @input="carregarImagem"
+          :rules="[val => (val != '' && val != null) || 'Insira uma imagem']"
+          accept=".jpg, image/*"
+        >
+          <template v-slot:prepend>
+            <q-icon name="attach_file"></q-icon>
+          </template>
+        </q-file>
+      </div>
+      <div class="full-width text-center text-h6 text-primary">
+        {{ msgPredicao }}
+      </div>
+      <div class="full-width text-center q-gutter-sm q-mt-xs">
+        <q-btn color="primary" type="submit">Reconhecer</q-btn>
+        <q-btn color="primary" type="reset">Limpar Campos</q-btn>
+      </div>
+    </q-form>
   </q-page>
 </template>
-
 <script>
 import * as tf from "@tensorflow/tfjs";
 import { fetch as fetchPolyfill } from "whatwg-fetch";
-import truck from "assets/caminhao.jpg";
+import logo from "assets/logo_olho.png";
 export default {
-  name: "PageIndex",
   data() {
     return {
       msgPredicao: "Modelo carregado",
       objetoPredicao: "",
       modelo: tf.sequential(),
       arquivo: null,
-      img: truck,
+      img: logo,
       labels: [
         "AVIÃO",
         "CARRO",
@@ -62,7 +61,6 @@ export default {
       ]
     };
   },
-
   mounted() {
     try {
       window.fetch = fetchPolyfill;
@@ -81,22 +79,49 @@ export default {
     },
     carregarImagem() {
       this.img = URL.createObjectURL(this.arquivo);
-      this.msgPredicao = "Clique em reconhecer imagem";
+      this.msgPredicao = "Clique em Reconhecer imagem";
+    },
+    alertaCarregando(param) {
+      if (param == true) {
+        //console.log(param);
+        this.$q.loading.show({
+          spinnerColor: "primary",
+          spinnerSize: 140,
+          backgroundColor: "white",
+          message: "Carregando... Por favor aguarde",
+          messageColor: "black"
+        });
+      } else if (param == false) {
+        this.$q.loading.hide();
+        //console.log(param);
+      }
     },
     predizerImagem() {
+      this.alertaCarregando(true);
+
       this.objetoPredicao = document.getElementById("imagem");
-      let arrInput = tf.browser.fromPixels(this.objetoPredicao); //
+      let arrInput = tf.browser.fromPixels(this.objetoPredicao);
       this.objetoPredicao = tf.image
         .resizeBilinear(arrInput, [32, 32])
         .reshape([1, 32, 32, 3]);
 
-      let valor = this.modelo.predict(this.objetoPredicao);
-      this.msgPredicao = this.labels[valor.argMax(-1).dataSync()[0]];
+      setTimeout(() => {
+        let valor = "";
+        try {
+          valor = this.modelo.predict(this.objetoPredicao);
+        } catch (error) {
+          alert(error);
+        }
+        this.msgPredicao =
+          "RESULTADO: " + this.labels[valor.argMax(-1).dataSync()[0]];
+
+        this.alertaCarregando(false);
+      }, 500);
     },
     limparCampos() {
       this.arquivo = null;
       this.msgPredicao = "Modelo carregado";
-      this.img = truck;
+      this.img = logo;
     }
   }
 };
